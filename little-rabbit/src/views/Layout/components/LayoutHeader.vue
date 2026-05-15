@@ -1,4 +1,16 @@
 <script setup>
+import { getCategoryAPI } from '@/apis/getCategory';
+import { onMounted, ref } from 'vue';
+
+let currentList = ref([]);
+async function getCategory() {
+  const response =await getCategoryAPI();
+  currentList.value = response.result;
+  
+}
+
+onMounted(()=>getCategory())
+
 
 </script>
 
@@ -11,16 +23,11 @@
       </h1>
 
       <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink to="/">首页</RouterLink>
+        <li class="home" v-for="item in currentList" key="item.id">
+          <RouterLink to="/">{{ item.name }}</RouterLink>
 
         </li>
 
-        <li> <RouterLink to="/">居家</RouterLink> </li>
-
-        <li> <RouterLink to="/">美食</RouterLink> </li>
-
-        <li> <RouterLink to="/">服饰</RouterLink> </li>
 
       </ul>
 
