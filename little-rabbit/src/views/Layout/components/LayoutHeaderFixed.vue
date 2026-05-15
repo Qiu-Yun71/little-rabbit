@@ -1,5 +1,10 @@
 <script setup>
+
 import { useScroll } from '@vueuse/core';
+import { useCategoryStore } from '@/stores/category';
+
+const categorystore = useCategoryStore();
+
 //解构赋值获得纵向滚动距离
 const {y} = useScroll(window)
 
@@ -13,51 +18,10 @@ const {y} = useScroll(window)
       <ul class="app-header-nav " >
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
-
         </li>
 
-        <li>
-          <RouterLink to="/">居家</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">美食</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">服饰</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">母婴</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">个护</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">严选</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">数码</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">运动</RouterLink>
-
-        </li>
-
-        <li>
-          <RouterLink to="/">杂项</RouterLink>
+       <li class="home" v-for="item in categorystore.currentList" key="item.id">
+          <RouterLink to="/">{{ item.name }}</RouterLink>
 
         </li>
 

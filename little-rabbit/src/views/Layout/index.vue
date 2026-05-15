@@ -3,6 +3,16 @@ import LayoutNav from './components/LayoutNav.vue'
 import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
 import LayoutHeaderFixed from './components/LayoutHeaderFixed.vue';
+import { useCategoryStore } from '@/stores/category';
+import { onMounted } from 'vue';
+
+const categorystore = useCategoryStore();
+//pinia只在父组件进行一次请求，存储数据
+onMounted(() => {
+  categorystore.getCategory()
+})
+
+
 </script>
 
 <template>
