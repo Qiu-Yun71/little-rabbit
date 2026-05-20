@@ -3,7 +3,7 @@ export function CategoryAPI(id) {
     return httpInstance({
         url: '/category',
         params: {
-            id
+            id//等价于id：id
         }
     })
 }
