@@ -2,7 +2,7 @@
 import { CategoryAPI } from '@/apis/category';
 import { getBannerAPI } from '@/apis/getBanner';
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import Goodsitem from '../Home/components/Goodsitem.vue';
 let categoryList = ref([])
 const route = useRoute()
@@ -13,6 +13,10 @@ async function getCategory(id) {
 }
 
 onMounted(() => getCategory(route.params.id))
+
+onBeforeRouteUpdate((to) => {
+  getCategory(to.params.id)
+})
 
 
 const banner = ref([]);

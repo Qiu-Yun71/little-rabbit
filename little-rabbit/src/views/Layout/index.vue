@@ -22,6 +22,9 @@ onMounted(() => {
   <LayoutHeaderFixed/>
   <LayoutNav />
   <LayoutHeader />
+
+  <!-- 解决路由缓存问题，可以强制销毁重建，但是对可以复用的部分存在性能浪费 -->
+  <!-- <RouterView  :key="$route.fullPath"/> -->
   <RouterView />
   <LayoutFooter />
 </template>
