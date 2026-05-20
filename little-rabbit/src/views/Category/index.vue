@@ -3,6 +3,7 @@ import { CategoryAPI } from '@/apis/category';
 import { getBannerAPI } from '@/apis/getBanner';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import Goodsitem from '../Home/components/Goodsitem.vue';
 let categoryList = ref([])
 const route = useRoute()
 
@@ -51,6 +52,36 @@ onMounted(() => getBanner());
 
   </div>
 
+  <div class="sub-list">
+  <h3>全部分类</h3>
+
+  <ul>
+    <li v-for="i in categoryList.children" :key="i.id">
+      <RouterLink to="/">
+        <img :src="i.picture" />
+        <p>{{ i.name }}</p>
+
+      </RouterLink>
+
+    </li>
+
+  </ul>
+
+</div>
+
+<div class="ref-goods" v-for="item in categoryList.children" :key="item.id">
+  <div class="head">
+    <h3>- {{ item.name }}-</h3>
+
+  </div>
+
+  <div class="body">
+    <Goodsitem v-for="good in item.goods" :good="good" :key="good.id" />
+  </div>
+
+</div>
+
+
     </div>
 
   </div>
@@ -76,6 +107,7 @@ onMounted(() => getBanner());
       display: flex;
       padding: 0 32px;
       flex-wrap: wrap;
+      justify-content: space-between;
 
       li {
         width: 168px;
