@@ -39,7 +39,7 @@ const {banner} = usebanner()
 
   <ul>
     <li v-for="i in categoryList.children" :key="i.id">
-      <RouterLink to="/">
+      <RouterLink :to="`/category/sub/${i.id}`">
         <img :src="i.picture" />
         <p>{{ i.name }}</p>
 

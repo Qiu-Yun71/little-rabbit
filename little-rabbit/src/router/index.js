@@ -5,6 +5,7 @@ import Login from '@/views/Login/index.vue'
 import Layout from '@/views/Layout/index.vue'
 import Home from '@/views/Home/index.vue'
 import Category from '@/views/Category/index.vue'
+import Subcategory from '@/views/Subcategory/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,14 +14,19 @@ const router = createRouter({
       path: '/',
       component: Layout,
       //注意children内path最前面没有/，且第一个一般是默认子路由路径为空
-      children: [{
-        path: '',
-        component: Home
-      },
-      {
-        path: 'category/:id',
-        component: Category
-      }]
+      children: [
+        {
+          path: '',
+          component: Home
+        },
+        {
+          path: 'category/:id',
+          component: Category
+        },
+        {
+          path: 'category/sub/:id',
+          component: Subcategory
+        },]
     },
     {
       path: '/login',
