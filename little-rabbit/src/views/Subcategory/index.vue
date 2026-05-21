@@ -1,4 +1,7 @@
 <script setup>
+import { useCategoryFilter } from './composables/useCategoryfilter';
+const { filterData } = useCategoryFilter()
+
 
 
 </script>
@@ -10,10 +13,10 @@
       <el-breadcrumb separator=">">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
 
-        <el-breadcrumb-item :to="{ path: '/' }">居家
+        <el-breadcrumb-item :to="{ path: `/category/${filterData.parentId}` }">{{ filterData.parentName }}
         </el-breadcrumb-item>
 
-        <el-breadcrumb-item>居家生活用品</el-breadcrumb-item>
+        <el-breadcrumb-item>{{filterData.name}}</el-breadcrumb-item>
 
       </el-breadcrumb>
 
