@@ -1,6 +1,6 @@
 import { getCategoryFilterAPI } from '@/apis/category';
-import { onMounted, onBeforeRouteUpdate, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 
 export function useCategoryFilter() {
 
