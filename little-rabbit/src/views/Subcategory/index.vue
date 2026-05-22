@@ -3,9 +3,7 @@ import Goodsitem from '../Home/components/Goodsitem.vue';
 import { useCategoryFilter } from './composables/useCategoryfilter';
 import { useSubCategory } from './composables/useSubCategory';
 const { filterData } = useCategoryFilter()
-const { goodList } =  useSubCategory()
-console.log(goodList.value)
-
+const { goodList ,reqData } =  useSubCategory()
 
 </script>
 
@@ -26,7 +24,7 @@ console.log(goodList.value)
     </div>
 
     <div class="sub-container">
-      <el-tabs>
+      <el-tabs v-model="reqData.sortField"> 
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
 
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
