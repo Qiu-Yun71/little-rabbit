@@ -1,7 +1,10 @@
 <script setup>
+import Goodsitem from '../Home/components/Goodsitem.vue';
 import { useCategoryFilter } from './composables/useCategoryfilter';
+import { useSubCategory } from './composables/useSubCategory';
 const { filterData } = useCategoryFilter()
-
+const { goodList } =  useSubCategory()
+console.log(goodList.value)
 
 
 </script>
@@ -34,6 +37,8 @@ const { filterData } = useCategoryFilter()
 
       <div class="body">
          <!-- 商品列表-->
+          <Goodsitem  v-for="good in goodList"  :good = 'good' :key = 'good.id'/>
+        
       </div>
 
     </div>
