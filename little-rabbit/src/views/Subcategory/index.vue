@@ -3,7 +3,7 @@ import Goodsitem from '../Home/components/Goodsitem.vue';
 import { useCategoryFilter } from './composables/useCategoryfilter';
 import { useSubCategory } from './composables/useSubCategory';
 const { filterData } = useCategoryFilter()
-const { goodList ,reqData } =  useSubCategory()
+const { goodList ,reqData ,disable,load} =  useSubCategory()
 
 </script>
 
@@ -33,7 +33,9 @@ const { goodList ,reqData } =  useSubCategory()
 
       </el-tabs>
 
-      <div class="body">
+      <!-- v-infinite-scroll是eplus指令，表示到最底端时执行的函数 -->
+       <!-- :infinite-scroll-disabled表示是否禁用无限滚动 -->
+      <div class="body" v-infinite-scroll = 'load' :infinite-scroll-disabled ='disable'>
          <!-- 商品列表-->
           <Goodsitem  v-for="good in goodList"  :good = 'good' :key = 'good.id'/>
         

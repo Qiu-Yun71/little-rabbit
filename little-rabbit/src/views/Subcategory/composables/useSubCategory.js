@@ -21,5 +21,17 @@ export function useSubCategory() {
         reqData.page = 1//页面重置为一
         getSubCategory()
     })//监听而不是导出这个函数，在模板使用，避免暴露
-    return { goodList, reqData }
+
+    const disable = false//是否禁用无限滚动的参数
+    async function load() {
+        reqData.value.page++;
+        const response = await getSubCategoryAPI(reqData.value)
+        goodList.value = [...goodList.value, ...response.result.items]
+        //加载完毕时
+        if (response.result.items.length === 0) {
+            disable = true
+        }
+    }
+
+    return { goodList, reqData, disable, load }
 }
