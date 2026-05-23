@@ -34,6 +34,12 @@ const router = createRouter({
     }
 
   ],
+  //定制路由滚动行为，切换路由时滚动到页面顶部
+  scrollBehavior() {
+    return {
+      top: 0
+    }
+  }
 })
 
 export default router
