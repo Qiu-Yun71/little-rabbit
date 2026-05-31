@@ -1,22 +1,39 @@
 <script setup>
-
+import { getDetailApi } from '@/apis/detail';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+let goods = ref({})
+const routes = useRoute()
+async function getGoods() {
+  const response = await getDetailApi(routes.params.id)
+  goods.value = response.result 
+}
+onMounted(() => {
+  getGoods()
+})
 
 </script>
 
 <template>
   <div class="xtx-goods-page">
-    <div class="container">
+  <!-- 有goods下面的一个字段时证明已经有数据了就可以往下渲染 -->
+    <div class="container" v-if="goods.details"> 
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
 
-          <el-breadcrumb-item :to="{ path: '/' }">母婴
+          <!-- 注意下goods开始时是一个空对象，不能访问undefined下的categories第一项
+           解决方法
+            1. 可选链的语法?. 加载可能是udefined的那一层（为undefined时，整个表达式会直接返回 undefined 而不会抛出错误）
+            2. v-if手动控制渲染时机 保证只有数据存在才渲染 -->
+
+          <el-breadcrumb-item :to="{ path: `/category/${goods.categories?.[1].id}` }">{{ goods.categories?.[1].name }}
           </el-breadcrumb-item>
 
-          <el-breadcrumb-item :to="{ path: '/' }">跑步鞋
+          <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories?.[0].id}`}">{{ goods.categories?.[0].name }}
           </el-breadcrumb-item>
 
-          <el-breadcrumb-item>抓绒保暖，毛毛虫子儿童运动鞋</el-breadcrumb-item>
+          <el-breadcrumb-item>{{goods.name}}</el-breadcrumb-item>
 
         </el-breadcrumb>
 
@@ -34,7 +51,7 @@
                 <li>
                   <p>销量人气</p>
 
-                  <p> 100+ </p>
+                  <p> {{goods.salesCount}}+</p>
 
                   <p><i class="iconfont icon-task-filling"></i>销量人气</p>
 
@@ -43,7 +60,7 @@
                 <li>
                   <p>商品评价</p>
 
-                  <p>200+</p>
+                  <p>{{goods.conmentCount}}+</p>
 
                   <p><i class="iconfont icon-comment-filling"></i>查看评价</p>
 
@@ -52,7 +69,7 @@
                 <li>
                   <p>收藏人气</p>
 
-                  <p>300+</p>
+                  <p>{{goods.collectCount}}+</p>
 
                   <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
 
@@ -61,7 +78,7 @@
                 <li>
                   <p>品牌信息</p>
 
-                  <p>400+</p>
+                  <p>{{goods.brand.name}}</p>
 
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
 
@@ -73,14 +90,14 @@
 
             <div class="spec">
               <!-- 商品信息区 -->
-              <p class="g-name"> 抓绒保暖，毛毛虫儿童鞋 </p>
+              <p class="g-name"> {{goods.name}} </p>
 
-              <p class="g-desc">好穿 </p>
+              <p class="g-desc">{{goods.desc}} </p>
 
               <p class="g-price">
-                <span>200</span>
+                <span>{{goods.price}}</span>
 
-                <span> 100</span>
+                <span> {{goods.oldPrice}}</span>
 
               </p>
 
@@ -138,16 +155,17 @@
                 <div class="goods-detail">
                   <!-- 属性 -->
                   <ul class="attrs">
-                    <li v-for="item in 3" :key="item.value">
-                      <span class="dt">白色</span>
+                    <li v-for="item in goods.details.properties" :key="item.value">
+                      <span class="dt">{{item.name}}</span>
 
-                      <span class="dd">纯棉</span>
+                      <span class="dd">{{item.value}}</span>
 
                     </li>
 
                   </ul>
 
                   <!-- 图片 -->
+                   <img v-for="item in goods.details.pictures" :src='item' alt="" :key="item">
 
                 </div>
 
