@@ -18,10 +18,15 @@ function enterhandle(i) {
 
 
 const target = ref(null)
-const { elementX, elementY, isOutSide } = useMouseInElement(target)
+const { elementX, elementY, isOutside } = useMouseInElement(target)
 const left = ref(0)
 const top = ref(0)
-watch([elementX, elementY, isOutSide], () => {
+const positionX = ref(0)
+const positionY = ref(0)
+watch([elementX, elementY, isOutside], () => {
+  //如果鼠标未进入到盒子，不执行下面的逻辑(优化下避免不在盒子内还有逻辑执行)
+  if(isOutside.value)return
+
  // 横向
   if (elementX.value > 100 && elementX.value < 300) {
     left.value = elementX.value - 100
@@ -38,6 +43,10 @@ watch([elementX, elementY, isOutSide], () => {
   if (elementY.value > 300) { top.value = 200 }
   if (elementY.value < 100) { top.value = 0 }
 
+  //处理放大镜显示
+  positionX.value = -left.value*2
+  positionY.value = -top.value*2
+
 })
 </script>
 
@@ -48,7 +57,7 @@ watch([elementX, elementY, isOutSide], () => {
     <div class="middle" ref="target">
       <img :src="imageList[activeIndex]" alt="" />
       <!-- 蒙层小滑块 -->
-      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
+      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }" v-show="!isOutside"></div>
 
     </div>
 
@@ -63,11 +72,11 @@ watch([elementX, elementY, isOutSide], () => {
     <!-- 放大镜大图 -->
     <div class="large" :style="[
       {
-        backgroundImage: `url(${imageList[0]})`,
-        backgroundPositionX: `0px`,
-        backgroundPositionY: `0px`,
+        backgroundImage: `url(${imageList[activeIndex]})`,
+        backgroundPositionX: `${positionX}px`,
+        backgroundPositionY: `${positionY}px`,
       },
-    ]" v-show="false"></div>
+    ]" v-show="!isOutside"></div>
 
   </div>
 
