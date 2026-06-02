@@ -18,3 +18,12 @@ export const directiveLazy = {
         })
     }
 }
+
+//补充函数写法
+// export const directiveLazy = (app) => {
+//     app.directive('img-lazy', { ... })
+// }
+
+// 如果传给 app.use() 的 是一个函数，Vue 会直接执行这个函数，并把 app 作为第一个参数传进去。
+
+// 如果传给 app.use() 的 是一个对象，Vue 会查找该对象的 install 方法并执行它。

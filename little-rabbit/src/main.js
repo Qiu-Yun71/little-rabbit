@@ -6,6 +6,7 @@ import router from './router'
 
 import '@/styles/common.scss'
 import { directiveLazy } from './directives'
+import { componentPlugin } from '@/components'
 
 // //测试接口函数
 // import { getCategory } from './apis/testapi'
@@ -21,3 +22,4 @@ app.use(router)
 app.mount('#app')
 
 app.use(directiveLazy)
+app.use(componentPlugin)
