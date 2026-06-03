@@ -1,5 +1,34 @@
 <script setup>
-
+import { ref } from 'vue';
+const form = ref({
+  account: '',
+  passward: '',
+  agree: false
+})
+const rules = {
+  account: [{ required: true, message:'请输入用户名',trigger:'blur'}],
+  passward: [{ required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, max: 15, message: '密码长度应在长度6~15之间', trigger: 'blur' }],
+  agree: [{
+    validator: (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('请同意用户协议'))
+      } else {
+        callback()
+      }
+    }
+  }]
+}
+const formRef = ref(null)
+const doLogin = () => {
+  if (!formRef.value) return
+  formRef.value.validate((valid) => {
+    console.log(valid)
+    // if (valid) {
+    //   //do login
+    // }
+  })
+}
 </script>
 
 
@@ -32,25 +61,25 @@
         </nav>
 
         <div class="account-box">
-          <div class="form">
-            <el-form label-position="right" label-width="60px"
+          <div class="form" >
+            <el-form label-position="right" label-width="60px" ref="formRef" :model="form" :rules="rules"
               status-icon>
-              <el-form-item  label="账户">
-                <el-input/>
+              <el-form-item  label="账户" prop="account">
+                <el-input v-model="form.account"/>
               </el-form-item>
 
-              <el-form-item label="密码">
-                <el-input/>
+              <el-form-item label="密码" prop = 'passward'> 
+                <el-input v-model="form.passward"/>
               </el-form-item>
 
-              <el-form-item label-width="22px">
-                <el-checkbox  size="large">
+              <el-form-item label-width="22px" prop="agree">
+                <el-checkbox  size="large" v-model="form.agree">
                   我已同意隐私条款和服务条款
                 </el-checkbox>
 
               </el-form-item>
 
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
 
             </el-form>
 
