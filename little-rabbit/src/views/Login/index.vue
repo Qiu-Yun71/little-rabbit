@@ -1,13 +1,17 @@
 <script setup>
+import { loginAPI } from '@/apis/user';
+import { ElMessage } from 'element-plus';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const form = ref({
   account: '',
-  passward: '',
+  password: '',
   agree: false
 })
 const rules = {
   account: [{ required: true, message:'请输入用户名',trigger:'blur'}],
-  passward: [{ required: true, message: '请输入密码', trigger: 'blur' },
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' },
     { min: 6, max: 15, message: '密码长度应在长度6~15之间', trigger: 'blur' }],
   agree: [{
     validator: (rule, value, callback) => {
@@ -22,11 +26,17 @@ const rules = {
 const formRef = ref(null)
 const doLogin = () => {
   if (!formRef.value) return
-  formRef.value.validate((valid) => {
-    console.log(valid)
-    // if (valid) {
-    //   //do login
-    // }
+  const {account,password}=form.value
+  formRef.value.validate(async(valid) => {
+    // console.log(valid)
+  
+    if (valid) {
+      await loginAPI({account,password})
+      ElMessage.success({
+        message:'登录成功'
+      })
+      router.replace('/')
+    }
   })
 }
 </script>
@@ -68,8 +78,8 @@ const doLogin = () => {
                 <el-input v-model="form.account"/>
               </el-form-item>
 
-              <el-form-item label="密码" prop = 'passward'> 
-                <el-input v-model="form.passward"/>
+              <el-form-item label="密码" prop = 'password'> 
+                <el-input v-model="form.password"/>
               </el-form-item>
 
               <el-form-item label-width="22px" prop="agree">
