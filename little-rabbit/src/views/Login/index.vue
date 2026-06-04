@@ -3,6 +3,8 @@ import { loginAPI } from '@/apis/user';
 import { ElMessage } from 'element-plus';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
+const userStore = useUserStore()
 const router = useRouter()
 const form = ref({
   account: '',
@@ -31,7 +33,8 @@ const doLogin = () => {
     // console.log(valid)
   
     if (valid) {
-      await loginAPI({account,password})
+      // await loginAPI({account,password})
+      await userStore.getUserInfo( {account,password})//注意也要加上await
       ElMessage.success({
         message:'登录成功'
       })
@@ -75,11 +78,11 @@ const doLogin = () => {
             <el-form label-position="right" label-width="60px" ref="formRef" :model="form" :rules="rules"
               status-icon>
               <el-form-item  label="账户" prop="account">
-                <el-input v-model="form.account"/>
+                <el-input v-model="form.account" placeholder="账号(xiaotuxian001)"/>
               </el-form-item>
 
               <el-form-item label="密码" prop = 'password'> 
-                <el-input v-model="form.password"/>
+                <el-input v-model="form.password" placeholder="密码(123456)"/>
               </el-form-item>
 
               <el-form-item label-width="22px" prop="agree">
