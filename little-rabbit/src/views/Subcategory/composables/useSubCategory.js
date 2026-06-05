@@ -22,7 +22,7 @@ export function useSubCategory() {
         getSubCategory()
     })//监听而不是导出这个函数，在模板使用，避免暴露
 
-    const disable = false//是否禁用无限滚动的参数
+    let disable = false//是否禁用无限滚动的参数
     async function load() {
         reqData.value.page++;
         const response = await getSubCategoryAPI(reqData.value)
