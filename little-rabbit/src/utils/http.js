@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 
 const httpInstance = axios.create({
     baseURL: '/api',
@@ -24,6 +25,14 @@ httpInstance.interceptors.response.use(res => res.data, e => {
     ElMessage.warning({
         message: e.response.data.message
     })
+
+    //token失效401状态码处理
+    if (e.response.status === 401) {
+        const userStore = useUserStore()
+        userStore.clearStore()
+        const router = useRouter()
+        router.replace('/login')
+    }
     return Promise.reject(e)
 })
 
