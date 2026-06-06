@@ -6,13 +6,13 @@ import ImageView from '@/components/ImageView/index.vue';
 import DetailsHot from './components/DetailsHot.vue';
 import XtxSku from '@/components/XtxSku/index.vue';
 import { ElMessage } from 'element-plus';
-import { useCarStore } from '@/stores/car.js';
+import { useCartStore } from '@/stores/cart.js';
 
 let goods = ref({})
-const carCount = ref(1)
+const cartCount = ref(1)
 const skuObj = ref({})
 const routes = useRoute()
-const carStore = useCarStore()
+const cartStore = useCartStore()
 
 async function getGoods() {
   const response = await getDetailApi(routes.params.id)
@@ -22,7 +22,7 @@ onMounted(() => {
   getGoods()
 })
 
-const carChange = (count) => {
+const cartChange = (count) => {
   console.log(count)
 }
 
@@ -31,14 +31,14 @@ const skuChange = (sku) => {
   skuObj.value = sku
 }
 
-const addCar = () => {
+const addCart = () => {
   if (skuObj.value.skuId) {
-    carStore.addCar({
+    cartStore.addCart({
       id: goods.value.id, // 商品id
       name: goods.value.name, // 商品名称
       picture: goods.value.mainPictures[0], // 图片
       price: goods.value.price, // 最新价格
-      count: carCount.value, // 商品数量
+      count: cartCount.value, // 商品数量
       skuId: skuObj.value.skuId, // skuId
       attrsText: skuObj.value.specsText, // 商品规格文本
       selected: true, // 商品是否选中
@@ -167,10 +167,10 @@ const addCar = () => {
               <!-- sku组件 -->
               <XtxSku :goods="goods" @change="skuChange"/>
               <!-- 数据组件 -->
-              <el-input-number v-model="carCount" :min="1" @change="carChange" />
+              <el-input-number v-model="cartCount" :min="1" @change="cartChange" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn" @click="addCar">
+                <el-button size="large" class="btn" @click="addCart">
                   加入购物车
                 </el-button>
 

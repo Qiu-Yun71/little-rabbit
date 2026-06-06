@@ -6,7 +6,7 @@ import { getGoodsAPI } from '@/apis/getgoods.js';
 let newList = ref([]);
 async function News() {
     const response = await getGoodsAPI();
-    newList.value = response.result[0].goods.slice(1,5);
+    newList.value = response.result[0].goods.slice(2,6);
 }
 
 onMounted(() => {
