@@ -34,7 +34,7 @@ const cartStore = useCartStore();
 
           </RouterLink>
 
-          <i class="iconfont icon-close-new" @click="cartStore.delCart(i.skuId)"></i>
+          <i class="iconfont icon-close" @click="cartStore.delCart(i.skuId)"></i>
 
         </div>
 
