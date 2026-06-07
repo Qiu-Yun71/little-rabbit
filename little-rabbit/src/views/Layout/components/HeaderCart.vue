@@ -43,9 +43,10 @@ const cartStore = useCartStore();
 
       <div class="foot">
         <div class="total">
-          <p>共 10 件商品</p>
+          <p>共 {{ cartStore.allcount }} 件商品</p>
 
-          <p>&yen; 100.00 </p>
+          <p>&yen; {{ cartStore.allprice }} </p>
+          
 
         </div>
 
