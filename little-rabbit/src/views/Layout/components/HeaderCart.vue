@@ -1,6 +1,9 @@
 <script setup>
 import { useCartStore } from '@/stores/cart';
+import { useRouter } from 'vue-router';
 const cartStore = useCartStore();
+
+const router = useRouter()
 </script>
 
 <template>
@@ -50,7 +53,7 @@ const cartStore = useCartStore();
 
         </div>
 
-        <el-button size="large" type="primary" >去购物车结算</el-button>
+        <el-button size="large" type="primary" @click='router.push("/cartlist")'>去购物车结算</el-button>
 
       </div>
 
