@@ -66,7 +66,7 @@ const isAll = computed({
               </td>
 
               <td class="tc">
-                <el-input-number v-model="i.count" :min="0" />
+                <el-input-number v-model="i.count" :min="1" />
               </td>
 
               <td class="tc">
