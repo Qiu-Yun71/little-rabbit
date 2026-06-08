@@ -114,8 +114,8 @@ const isAll = computed({
       <!-- 操作栏 -->
       <div class="action">
         <div class="batch">
-          共 10 件商品，已选择 2 件，商品合计：
-          <span class="red">¥ 200.00 </span>
+          共 {{ cartStore.allcount }} 件商品，已选择{{ cartStore.selsectcount }}件，商品合计：
+          <span class="red">¥ {{ cartStore.selsectprice.toFixed(2) }} </span>
 
         </div>
 

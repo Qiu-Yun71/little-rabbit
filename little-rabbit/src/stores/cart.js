@@ -24,7 +24,11 @@ export const useCartStore = defineStore('cart', () => {
     const allcount = computed(() => cartList.value.reduce((add, curr) => add + curr.count, 0))
     const allprice = computed(() => cartList.value.reduce((add, curr) => add + curr.price * curr.count, 0))
 
-    return { cartList, addCart, delCart, allcount, allprice }
+    //已选择的数量和价格
+    const selsectcount = computed(() => cartList.value.filter(item => item.selected === true).reduce((add, curr) => add + curr.count, 0))
+    const selsectprice = computed(() => cartList.value.filter(item => item.selected === true).reduce((add, curr) => add + curr.price * curr.count, 0))
+
+    return { cartList, addCart, delCart, allcount, allprice, selsectcount, selsectprice }
 
 }, {
     persist: true
