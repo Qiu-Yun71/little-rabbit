@@ -1,7 +1,16 @@
 <script setup>
 import { useCartStore } from '@/stores/cart';
+import { computed } from 'vue';
 const cartStore = useCartStore();
 const cartList = cartStore.cartList
+
+const isAll = computed({
+  get: () => cartList.every(i => i.selected),
+  set: (newState) => cartList.forEach(i => i.selected = newState)
+})
+
+
+
 </script>
 
 <template>
@@ -12,7 +21,7 @@ const cartList = cartStore.cartList
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox/>
+                <el-checkbox v-model="isAll" />
               </th>
 
               <th width="400">商品信息</th>
@@ -33,7 +42,7 @@ const cartList = cartStore.cartList
           <tbody>
             <tr v-for="i in cartList" :key="i.id">
               <td>
-                <el-checkbox />
+                <el-checkbox v-model="i.selected" />
               </td>
 
               <td>
@@ -57,7 +66,7 @@ const cartList = cartStore.cartList
               </td>
 
               <td class="tc">
-                <el-input-number v-model="i.count" />
+                <el-input-number v-model="i.count" :min="0" />
               </td>
 
               <td class="tc">
@@ -67,7 +76,8 @@ const cartList = cartStore.cartList
 
               <td class="tc">
                 <p>
-                  <el-popconfirm title="确认删除吗?" confirm-button-text="确认" cancel-button-text="取消" @confirm="delCart(i)">
+                  <el-popconfirm title="确认删除吗?" confirm-button-text="确认" cancel-button-text="取消"
+                    @confirm="cartStore.delCart(i.skuId)">
                     <template #reference>
                       <a href="javascript:;">删除</a>
 
@@ -110,7 +120,7 @@ const cartList = cartStore.cartList
         </div>
 
         <div class="total">
-          <el-button size="large" type="primary" >下单结算</el-button>
+          <el-button size="large" type="primary">下单结算</el-button>
 
         </div>
 
