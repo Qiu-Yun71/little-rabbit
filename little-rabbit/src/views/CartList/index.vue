@@ -2,7 +2,7 @@
 import { useCartStore } from '@/stores/cart';
 import { computed } from 'vue';
 const cartStore = useCartStore();
-const cartList = cartStore.cartList
+const cartList = computed(() => cartStore.cartList)
 
 const isAll = computed({
   get: () => cartList.every(i => i.selected),
