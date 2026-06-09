@@ -6,7 +6,7 @@ import ImageView from '@/components/ImageView/index.vue';
 import DetailsHot from './components/DetailsHot.vue';
 import XtxSku from '@/components/XtxSku/index.vue';
 import { ElMessage } from 'element-plus';
-import { useCartStore } from '@/stores/cart.js';
+import { useCartStore } from '@/store/cartStore';
 
 let goods = ref({})
 const cartCount = ref(1)

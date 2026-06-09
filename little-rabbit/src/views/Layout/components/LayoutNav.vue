@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/store/userStore';
 const userStore = useUserStore()
 const router = useRouter()
 function confirm() {

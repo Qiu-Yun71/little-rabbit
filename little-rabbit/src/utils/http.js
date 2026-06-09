@@ -1,7 +1,7 @@
 //axios基础封装
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from '@/store/userStore'
 import { useRouter } from 'vue-router'
 
 const httpInstance = axios.create({

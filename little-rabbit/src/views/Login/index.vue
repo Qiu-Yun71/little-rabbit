@@ -3,7 +3,7 @@ import { loginAPI } from '@/apis/user';
 import { ElMessage } from 'element-plus';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/store/userStore';
 const userStore = useUserStore()
 const router = useRouter()
 const form = ref({
