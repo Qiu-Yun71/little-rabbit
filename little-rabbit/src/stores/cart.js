@@ -1,18 +1,21 @@
 import { defineStore } from "pinia"
 import { ref, computed } from "vue"
-import { insertCartAPI, findNewCartListApi } from "@/apis/cart.js"
+import { insertCartAPI, findNewCartListApi, delCartAPI } from "@/apis/cart.js"
 import { useUserStore } from "@/stores/user.js"
 
 export const useCartStore = defineStore('cart', () => {
     let cartList = ref([]);
     const userStore = useUserStore()
 
+    const updataNewList = async () => {
+        const response = await findNewCartListApi()
+        cartList.value = response.result
+    }
+
     async function addCart(goods) {
         if (userStore.userInfo.token) {
             await insertCartAPI(goods)
-            const response = await findNewCartListApi()
-            cartList.value = response.result
-
+            await updataNewList()
         } else {
             const addCount = Math.max(1, goods.count || 1)
             const existGoods = cartList.value.find(item => item.skuId === goods.skuId)
@@ -26,9 +29,14 @@ export const useCartStore = defineStore('cart', () => {
             }
         }
     }
-    function delCart(skuId) {
-        const idx = cartList.value.findIndex((item) => item.skuId === skuId)
-        cartList.value.splice(idx, 1)
+    async function delCart(skuId) {
+        if (userStore.userInfo.token) {
+            await delCartAPI(skuId)
+            await updataNewList()
+        } else {
+            const idx = cartList.value.findIndex((item) => item.skuId === skuId)
+            cartList.value.splice(idx, 1)
+        }
     }
 
     //计算总数量和总价格
@@ -39,7 +47,7 @@ export const useCartStore = defineStore('cart', () => {
     const selsectcount = computed(() => cartList.value.filter(item => item.selected === true).reduce((add, curr) => add + curr.count, 0))
     const selsectprice = computed(() => cartList.value.filter(item => item.selected === true).reduce((add, curr) => add + curr.price * curr.count, 0))
 
-    return { cartList, addCart, delCart, allcount, allprice, selsectcount, selsectprice }
+    return { cartList, addCart, delCart, updataNewList, allcount, allprice, selsectcount, selsectprice }
 
 }, {
     persist: true
