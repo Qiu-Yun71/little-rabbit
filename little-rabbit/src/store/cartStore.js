@@ -39,6 +39,10 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
+    function clearCart() {
+        cartList.value = []
+    }
+
     //计算总数量和总价格
     const allcount = computed(() => cartList.value.reduce((add, curr) => add + curr.count, 0))
     const allprice = computed(() => cartList.value.reduce((add, curr) => add + curr.price * curr.count, 0))
@@ -47,7 +51,7 @@ export const useCartStore = defineStore('cart', () => {
     const selsectcount = computed(() => cartList.value.filter(item => item.selected === true).reduce((add, curr) => add + curr.count, 0))
     const selsectprice = computed(() => cartList.value.filter(item => item.selected === true).reduce((add, curr) => add + curr.price * curr.count, 0))
 
-    return { cartList, addCart, delCart, updataNewList, allcount, allprice, selsectcount, selsectprice }
+    return { cartList, addCart, delCart, updataNewList, clearCart, allcount, allprice, selsectcount, selsectprice }
 
 }, {
     persist: true
