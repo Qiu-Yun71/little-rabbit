@@ -5,8 +5,8 @@ const cartStore = useCartStore();
 const cartList = computed(() => cartStore.cartList)
 
 const isAll = computed({
-  get: () => cartList.every(i => i.selected),
-  set: (newState) => cartList.forEach(i => i.selected = newState)
+  get: () => cartList.value.every(i => i.selected),
+  set: (newState) => cartList.value.forEach(i => i.selected = newState)
 })
 
 

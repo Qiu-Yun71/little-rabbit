@@ -31,7 +31,7 @@ export const useCartStore = defineStore('cart', () => {
     }
     async function delCart(skuId) {
         if (userStore.userInfo.token) {
-            await delCartAPI(skuId)
+            await delCartAPI([skuId])
             await updataNewList()
         } else {
             const idx = cartList.value.findIndex((item) => item.skuId === skuId)
