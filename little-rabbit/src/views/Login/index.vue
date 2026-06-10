@@ -6,9 +6,11 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '@/store/userStore';
 const userStore = useUserStore()
 const router = useRouter()
+// 手机号: 12056258290
+// 用户名: 我是小兔鲜
 const form = ref({
-  account: '',
-  password: '',
+  account: 'heima290',
+  password: 'hm#qd@23!',
   agree: false
 })
 const rules = {
