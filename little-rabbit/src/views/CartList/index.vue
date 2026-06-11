@@ -1,6 +1,7 @@
 <script setup>
 import { useCartStore } from '@/store/cartStore';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 const cartStore = useCartStore();
 const cartList = computed(() => cartStore.cartList)
 
@@ -9,6 +10,7 @@ const isAll = computed({
   set: (newState) => cartList.value.forEach(i => i.selected = newState)
 })
 
+const router = useRouter()
 
 
 </script>
@@ -120,7 +122,7 @@ const isAll = computed({
         </div>
 
         <div class="total">
-          <el-button size="large" type="primary">下单结算</el-button>
+          <el-button size="large" type="primary" @click="router.push('/checkout')">下单结算</el-button>
 
         </div>
 
