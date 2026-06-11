@@ -4,7 +4,9 @@ import { ElMessage } from 'element-plus';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/store/userStore';
+import { useCartStore } from '@/store/cartStore';
 const userStore = useUserStore()
+const cartStore = useCartStore()
 const router = useRouter()
 // 手机号: 12056258290
 // 用户名: 我是小兔鲜
@@ -14,9 +16,9 @@ const form = ref({
   agree: false
 })
 const rules = {
-  account: [{ required: true, message:'请输入用户名',trigger:'blur'}],
+  account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 15, message: '密码长度应在长度6~15之间', trigger: 'blur' }],
+  { min: 6, max: 15, message: '密码长度应在长度6~15之间', trigger: 'blur' }],
   agree: [{
     validator: (rule, value, callback) => {
       if (!value) {
@@ -30,15 +32,16 @@ const rules = {
 const formRef = ref(null)
 const doLogin = () => {
   if (!formRef.value) return
-  const {account,password}=form.value
-  formRef.value.validate(async(valid) => {
+  const { account, password } = form.value
+  formRef.value.validate(async (valid) => {
     // console.log(valid)
-  
+
     if (valid) {
       // await loginAPI({account,password})
-      await userStore.getUserInfo( {account,password})//注意也要加上await
+      await userStore.getUserInfo({ account, password })//注意也要加上await
+      await cartStore.updataNewList()
       ElMessage.success({
-        message:'登录成功'
+        message: '登录成功'
       })
       router.replace('/')
     }
@@ -76,19 +79,18 @@ const doLogin = () => {
         </nav>
 
         <div class="account-box">
-          <div class="form" >
-            <el-form label-position="right" label-width="60px" ref="formRef" :model="form" :rules="rules"
-              status-icon>
-              <el-form-item  label="账户" prop="account">
-                <el-input v-model="form.account" placeholder="账号(xiaotuxian001)"/>
+          <div class="form">
+            <el-form label-position="right" label-width="60px" ref="formRef" :model="form" :rules="rules" status-icon>
+              <el-form-item label="账户" prop="account">
+                <el-input v-model="form.account" placeholder="账号(xiaotuxian001)" />
               </el-form-item>
 
-              <el-form-item label="密码" prop = 'password'> 
-                <el-input v-model="form.password" placeholder="密码(123456)"/>
+              <el-form-item label="密码" prop='password'>
+                <el-input v-model="form.password" placeholder="密码(123456)" />
               </el-form-item>
 
               <el-form-item label-width="22px" prop="agree">
-                <el-checkbox  size="large" v-model="form.agree">
+                <el-checkbox size="large" v-model="form.agree">
                   我已同意隐私条款和服务条款
                 </el-checkbox>
 
