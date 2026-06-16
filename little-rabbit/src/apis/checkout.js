@@ -5,3 +5,13 @@ export function GetCheckInfoAPI() {
         url: '/member/order/pre',
     })
 }
+
+
+//生成订单接口
+export function createOrderAPI(data) {
+    return httpInstance({
+        url: '/member/order',
+        method: 'POST',
+        data
+    })
+}
