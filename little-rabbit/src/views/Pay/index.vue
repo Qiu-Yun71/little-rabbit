@@ -4,6 +4,8 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute()
 const payInfo = ref({})
+import { useRouter } from "vue-router";
+const router = useRouter()
 
 const getOrder = async () => {
     const id = route.query.id
@@ -17,7 +19,7 @@ onMounted(() => {
 
 // 支付地址
 const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
-const backURL = 'http://127.0.0.1:5173/paycallback'
+const backURL = 'http://127.0.0.1:5173/payback'
 const redirectUrl = encodeURIComponent(backURL)
 const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`
 </script>
@@ -44,7 +46,7 @@ const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redire
                 <div class="item">
                     <p>支付平台</p>
                     <a class="btn wx" href="javascript:;"></a>
-                    <a class="btn alipay" :href="payUrl"></a>
+                    <a class="btn alipay" :href="payUrl" @click="router.push(`/payback?id=${route.query.id}`)"></a>
                 </div>
                 <div class="item">
                     <p>支付方式</p>
