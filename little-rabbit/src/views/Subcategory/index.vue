@@ -1,5 +1,5 @@
 <script setup>
-import Goodsitem from '../Home/components/Goodsitem.vue';
+import Goodsitem from '@/components/Goodsitem/index.vue';
 import { useCategoryFilter } from './composables/useCategoryfilter';
 import { useSubCategory } from './composables/useSubCategory';
 const { filterData } = useCategoryFilter()

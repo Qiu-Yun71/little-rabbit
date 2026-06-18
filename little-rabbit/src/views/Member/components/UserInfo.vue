@@ -2,7 +2,7 @@
 import { useUserStore } from '@/store/userStore'
 import { getLikeListAPI } from '@/apis/member';
 import { onMounted, ref } from 'vue';
-import GoodsItem from '@/views/Home/components/Goodsitem.vue';
+import GoodsItem from '@/components/Goodsitem/index.vue';
 
 const userStore = useUserStore()
 const likeList = ref([])

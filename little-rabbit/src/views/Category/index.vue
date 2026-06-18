@@ -1,5 +1,5 @@
 <script setup>
-import Goodsitem from '../Home/components/Goodsitem.vue';
+import Goodsitem from '@/components/Goodsitem/index.vue';
 import { usebanner } from './composables/usebanner';
 import { useCategory } from './composables/usecategory';
 
