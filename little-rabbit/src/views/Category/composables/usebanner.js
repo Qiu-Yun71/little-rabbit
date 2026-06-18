@@ -1,5 +1,5 @@
 import { ref, onMounted } from "vue";
-import { getBannerAPI } from '@/apis/getBanner';
+import { getBannerAPI } from '@/apis/home';
 
 
 export function usebanner() {

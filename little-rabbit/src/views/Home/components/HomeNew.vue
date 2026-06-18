@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted , ref} from 'vue';
 import HomePanel from './HomePanel.vue';
-// import { getNewsAPI } from '@/apis/getNew';//news接口的第一个api数据有问题，缺少了一些信息，这里用goods的api其中四项替代
-import { getGoodsAPI } from '@/apis/getgoods.js';
+// import { getNewsAPI } from '@/apis/home';//news接口的第一个api数据有问题，缺少了一些信息，这里用goods的api其中四项替代
+import { getGoodsAPI } from '@/apis/home';
 let newList = ref([]);
 async function News() {
     const response = await getGoodsAPI();
