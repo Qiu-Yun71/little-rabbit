@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router'
 
 const httpInstance = axios.create({
     baseURL: '/api',
-    timeout: 5000
+    timeout: 100000
 })
 
 //拦截器

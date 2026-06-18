@@ -1,4 +1,6 @@
 <script setup>
+import { getUserOrderAPI } from '@/apis/order';
+import { onMounted, ref } from 'vue';
 // tab列表
 const tabTypes = [
     { name: "all", label: "全部订单" },
@@ -10,7 +12,17 @@ const tabTypes = [
     { name: "cancel", label: "已取消" }
 ]
 // 订单列表
-const orderList = []
+const params = ref({
+    orderState: 0,
+    page: 1,
+    pageSize: 2,
+})
+const orderList = ref([])
+const getUserOrder = async () => {
+    const response = await getUserOrderAPI(params)
+    orderList.value = response.result.items
+}
+onMounted(() => getUserOrder())
 
 </script>
 
