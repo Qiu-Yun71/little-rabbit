@@ -1,11 +1,5 @@
 {
     "framework": "vite",
-    "analytics": {
-        "enabled": true
-    },
-    "speedInsights": {
-        "enabled": true
-    },
     "routes": [
         {
             "handle": "filesystem"
