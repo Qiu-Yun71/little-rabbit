@@ -5,7 +5,9 @@ import { useUserStore } from '@/store/userStore'
 import { useRouter } from 'vue-router'
 
 const httpInstance = axios.create({
-    baseURL: '/api',
+    baseURL: import.meta.env.DEV
+        ? '/api'
+        : 'https://pcapi-xiaotuxian-front-devtest.itheima.net',
     timeout: 100000
 })
 
