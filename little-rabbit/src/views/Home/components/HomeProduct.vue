@@ -6,11 +6,11 @@ import Goodsitem from '@/components/Goodsitem/index.vue';
 
 let goodsProduct = ref([]);
 async function getGoods() {
-    const response =  await getGoodsAPI();
-    goodsProduct.value = response.result;
+  const response = await getGoodsAPI();
+  goodsProduct.value = response.result;
 }
 
-onMounted(()=>getGoods())
+onMounted(() => getGoods())
 
 
 </script>
@@ -32,7 +32,7 @@ onMounted(()=>getGoods())
 
         <ul class="goods-list">
           <li v-for="good in cate.goods" :key="good.id">
-           <Goodsitem :good="good"/>
+            <Goodsitem :good="good" />
 
           </li>
 
@@ -49,6 +49,7 @@ onMounted(()=>getGoods())
 .home-product {
   background: #fff;
   margin-top: 20px;
+
   .sub {
     margin-bottom: 2px;
 
@@ -132,7 +133,7 @@ onMounted(()=>getGoods())
       }
     }
 
-  
+
   }
 }
 </style>
