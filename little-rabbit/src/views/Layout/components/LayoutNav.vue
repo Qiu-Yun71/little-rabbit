@@ -30,7 +30,8 @@ function confirm() {
 
           </li>
 
-          <li><a href="javascript:;"><i class="iconfont icon-dingdan"></i>我的订单</a></li>
+          <li><a href="javascript:;" @click="router.push('/member/order')"><i class="iconfont icon-dingdan"></i>我的订单</a>
+          </li>
 
           <li><a href="javascript:;" @click="router.push('/member')"><i class="iconfont icon-huiyuan"></i>会员中心</a></li>
 
